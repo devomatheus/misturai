@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MisturAI | Acerte a cor antes de abrir a lata</title>
+    <meta name="description"
+        content="Simule a cor da sua tinta com os corantes GLASU! antes de misturar. Receita pronta, lista de frascos e ficha em PDF. Grátis, sem cadastro.">
+    <link rel="icon" type="image/png" href="assets/images/pincel.png">
+    <link rel="apple-touch-icon" href="assets/images/pincel.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="assets/css/landing.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= FAIXA DE URGÊNCIA ================= -->
+    <!-- data-fim: fim da campanha (ISO 8601). Vazio = contagem até a meia-noite de hoje. -->
+    <div class="faixa-urgencia" id="faixaUrgencia" data-fim="">
+        <div class="faixa-urgencia__conteudo">
+            <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+            <span><strong>Condição especial de hoje</strong> para quem simula a cor antes de comprar os corantes.</span>
+            <span class="faixa-urgencia__relogio" aria-label="Tempo restante">
+                Termina em <span class="contador" data-contador>00:00:00</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- ================= TOPO ================= -->
+    <header class="topo">
+        <div class="container topo__conteudo">
+            <a href="#inicio" class="topo__marca">
+                <img class="topo__logo" src="assets/images/logo-cabecalho.png" alt="MisturAI — Ache sua cor"
+                    width="640" height="391">
+            </a>
+            <nav class="topo__menu" aria-label="Seções da página">
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#recursos">Recursos</a>
+                <a href="#corantes">Corantes</a>
+                <a href="#duvidas">Dúvidas</a>
+            </nav>
+            <a href="index.html" class="btn botao botao--primario topo__cta">
+                Simular grátis <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </header>
+
+    <main id="inicio">
+
+        <!-- ================= HERÓI ================= -->
+        <section class="heroi">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <span class="selo">
+                            <i class="bi bi-fire" aria-hidden="true"></i> 100% grátis · sem cadastro · sem instalar nada
+                        </span>
+                        <h1 class="heroi__titulo">
+                            Pare de <span class="destaque">jogar tinta no lixo</span>.
+                            Acerte a cor <u>antes</u> de abrir a lata.
+                        </h1>
+                        <p class="heroi__texto">
+                            Cada gota errada custa caro: tinta perdida, corante sobrando na prateleira e cliente
+                            insatisfeito. Com o <strong>MisturAI</strong> você vê a cor final com os corantes
+                            <strong>GLASU!</strong>, simula na parede e sai com a <strong>receita exata</strong> e a
+                            <strong>lista de frascos</strong> na mão. Em segundos.
+                        </p>
+                        <ul class="lista-check">
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Cor final calculada gota a gota</li>
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Simulação em ambiente com 3 tipos de luz</li>
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Receita + ficha em PDF pronta para imprimir</li>
+                        </ul>
+                        <div class="heroi__acoes">
+                            <a href="index.html" class="btn btn-lg botao botao--primario botao--pulsar">
+                                <i class="bi bi-palette-fill" aria-hidden="true"></i> Quero achar minha cor agora
+                            </a>
+                            <a href="#demo" class="btn btn-lg botao botao--contorno">
+                                Testar aqui mesmo
+                            </a>
+                        </div>
+                        <p class="heroi__microcopia">
+                            <i class="bi bi-shield-check" aria-hidden="true"></i>
+                            Você não paga nada, não deixa e-mail e não instala nada. Só abre e usa.
+                        </p>
+                    </div>
+
+                    <!-- DEMONSTRAÇÃO INTERATIVA -->
+                    <div class="col-lg-6" id="demo">
+                        <div class="demo">
+                            <div class="demo__cabecalho">
+                                <span class="demo__titulo">
+                                    <i class="bi bi-droplet-half" aria-hidden="true"></i> Teste agora: lata de 900 mL, Branco Neve
+                                </span>
+                                <button type="button" class="demo__zerar" data-acao="zerar">
+                                    <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Zerar
+                                </button>
+                            </div>
+
+                            <figure class="demo__parede" id="demoParede">
+                                <svg class="demo__cena" viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet"
+                                    role="img" aria-label="Sala com a parede pintada na cor simulada">
+                                    <rect data-parede x="0" y="0" width="600" height="215" fill="#ffffff" />
+                                    <rect x="0" y="0" width="600" height="215" fill="url(#demoLuz)" />
+                                    <defs>
+                                        <linearGradient id="demoLuz" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#ffffff" stop-opacity=".35" />
+                                            <stop offset="55%" stop-color="#ffffff" stop-opacity="0" />
+                                            <stop offset="100%" stop-color="#000000" stop-opacity=".12" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="0" y="203" width="600" height="12" fill="#ffffff" />
+                                    <rect x="0" y="215" width="600" height="45" fill="#c9bdb0" />
+                                    <rect x="0" y="215" width="600" height="5" fill="#b3a494" />
+                                    <rect x="400" y="45" width="120" height="80" rx="3" fill="#fdfdfd" stroke="#6f7072" stroke-width="3" />
+                                    <rect x="410" y="55" width="100" height="60" fill="#ecedec" />
+                                    <circle cx="440" cy="78" r="12" fill="#FF8200" />
+                                    <path d="M410 115 L455 78 L490 115 Z" fill="#6f7072" />
+                                    <rect x="150" y="118" width="210" height="42" rx="10" fill="#7d7e80" />
+                                    <rect x="150" y="150" width="210" height="45" rx="8" fill="#6f7072" />
+                                    <rect x="165" y="128" width="52" height="34" rx="6" fill="#FF8200" opacity=".9" />
+                                    <rect x="160" y="193" width="12" height="14" fill="#4c4d4e" />
+                                    <rect x="338" y="193" width="12" height="14" fill="#4c4d4e" />
+                                    <rect x="540" y="118" width="6" height="88" fill="#4c4d4e" />
+                                    <path d="M520 118 L566 118 L556 90 L530 90 Z" fill="#ecedec" stroke="#6f7072" stroke-width="2" />
+                                    <path d="M82 206 q10 -58 36 -72 q-6 47 -21 72 Z" fill="#3f6b4a" />
+                                    <path d="M82 206 q-10 -50 -33 -63 q3 41 19 63 Z" fill="#4e7d59" />
+                                    <path d="M62 204 h42 l-7 32 h-28 Z" fill="#b26a3c" />
+                                </svg>
+                                <figcaption class="demo__legenda">
+                                    <span class="demo__hex" id="demoHex">#FFFFFF</span>
+                                    <span class="demo__resumo" id="demoResumo">Nenhum corante ainda</span>
+                                </figcaption>
+                            </figure>
+
+                            <p class="demo__instrucao">Toque em um corante para pingar <strong>25 gotas</strong>:</p>
+                            <ul class="demo__corantes" id="demoCorantes"></ul>
+
+                            <a href="index.html" class="btn botao botao--primario w-100 demo__cta">
+                                Gostou? Monte a receita completa e baixe o PDF
+                                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NÚMEROS ================= -->
+        <section class="numeros" aria-label="O MisturAI em números">
+            <div class="container">
+                <ul class="numeros__lista">
+                    <li class="numeros__item"><strong>8</strong><span>corantes GLASU!</span></li>
+                    <li class="numeros__item"><strong>4</strong><span>tintas base</span></li>
+                    <li class="numeros__item"><strong>900 mL a 18 L</strong><span>de lata</span></li>
+                    <li class="numeros__item"><strong>1.000</strong><span>gotas por frasco</span></li>
+                    <li class="numeros__item"><strong>R$ 0</strong><span>para usar</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= DOR ================= -->
+        <section class="secao secao--clara">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">Seja sincero</span>
+                    <h2 class="secao__titulo">Quantas vezes isso <span class="destaque">já aconteceu com você?</span></h2>
+                </header>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <article class="dor">
+                            <i class="bi bi-emoji-frown dor__icone" aria-hidden="true"></i>
+                            <h3 class="dor__titulo">A cor saiu outra</h3>
+                            <p>Era para ser um bege suave. Virou um salmão que ninguém pediu. E agora a parede inteira
+                                precisa de outra demão.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="dor">
+                            <i class="bi bi-trash3 dor__icone" aria-hidden="true"></i>
+                            <h3 class="dor__titulo">Lata de 18 L perdida</h3>
+                            <p>Pingou corante demais e não tem volta. Tinta não “destinge”. É dinheiro direto para o
+                                lixo.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="dor">
+                            <i class="bi bi-box-seam dor__icone" aria-hidden="true"></i>
+                            <h3 class="dor__titulo">Frasco sobrando</h3>
+                            <p>Comprou no chute, sobrou corante encostado. Ou faltou no meio da obra e teve que voltar
+                                à loja.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="dor">
+                            <i class="bi bi-chat-left-dots dor__icone" aria-hidden="true"></i>
+                            <h3 class="dor__titulo">Cliente reclamando</h3>
+                            <p>“Não era essa cor que eu imaginei.” A frase que todo pintor e toda loja de tintas
+                                odeia ouvir.</p>
+                        </article>
+                    </div>
+                </div>
+                <p class="secao__fecho">
+                    O problema não é você. É <strong>misturar no escuro</strong>.
+                    Quem simula antes, erra menos. Simples assim.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= COMO FUNCIONA ================= -->
+        <section class="secao" id="como-funciona">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">Como funciona</span>
+                    <h2 class="secao__titulo">Da ideia à receita em <span class="destaque">3 passos</span></h2>
+                    <p class="secao__texto">Sem conta, sem tutorial, sem enrolação. Abriu, usou.</p>
+                </header>
+                <ol class="passos">
+                    <li class="passo">
+                        <span class="passo__numero">1</span>
+                        <h3 class="passo__titulo">Escolha a base e a lata</h3>
+                        <p>Branco Neve, Branco Gelo, Branco Acetinado ou Base Palha. Lata de 900 mL, 2,7 L, 3,6 L
+                            ou 18 L.</p>
+                    </li>
+                    <li class="passo">
+                        <span class="passo__numero">2</span>
+                        <h3 class="passo__titulo">Pingue os corantes</h3>
+                        <p>Ajuste as gotas de cada um dos 8 corantes GLASU! e veja a cor mudar na hora, com a
+                            evolução gota a gota.</p>
+                    </li>
+                    <li class="passo">
+                        <span class="passo__numero">3</span>
+                        <h3 class="passo__titulo">Leve a receita pronta</h3>
+                        <p>Copie a receita, veja quantos frascos comprar e exporte a ficha em PDF para o balcão ou
+                            para o cliente.</p>
+                    </li>
+                </ol>
+                <div class="secao__acao">
+                    <a href="index.html" class="btn btn-lg botao botao--primario">
+                        Começar agora, é grátis <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= RECURSOS ================= -->
+        <section class="secao secao--escura" id="recursos">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">Tudo o que você precisa</span>
+                    <h2 class="secao__titulo">Não é um “catálogo de cores”. É uma <span class="destaque">ferramenta de
+                            trabalho</span>.</h2>
+                </header>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-palette-fill recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Cor resultante com código HEX</h3>
+                            <p>Veja a cor final, o nome aproximado e copie o código com um clique.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-bar-chart-steps recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Evolução gota a gota</h3>
+                            <p>Uma escala mostra como a cor caminha conforme você pinga. Pare exatamente no tom certo.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-house-door-fill recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Simulação no ambiente</h3>
+                            <p>Veja a parede pintada sob luz do dia, luz quente e sombra antes de gastar um litro.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-clipboard-check recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Receita exata</h3>
+                            <p>Gotas e mL de cada corante, prontos para copiar e repetir a mesma cor quando quiser.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-cart-check-fill recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Lista de compra sem chute</h3>
+                            <p>Quantos frascos de 50 mL comprar de cada cor e quanto vai sobrar. Nem mais, nem menos.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="recurso">
+                            <i class="bi bi-file-earmark-pdf-fill recurso__icone" aria-hidden="true"></i>
+                            <h3 class="recurso__titulo">Ficha em PDF</h3>
+                            <p>Uma ficha profissional, com a amostra e a receita, para entregar ao cliente ou fixar no
+                                balcão.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= AUTORIDADE TÉCNICA ================= -->
+        <section class="secao" id="corantes">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5">
+                        <span class="secao__sobretitulo">Ciência, não achismo</span>
+                        <h2 class="secao__titulo text-start">Calculado com o mesmo modelo usado pela <span
+                                class="destaque">indústria de tintas</span></h2>
+                        <p class="secao__texto text-start">
+                            O MisturAI não “pinta por cima” de uma foto. Ele usa o modelo de
+                            <strong>Kubelka-Munk</strong>, a base da colorimetria de tintas, e faz a mistura em
+                            <strong>massa</strong>, com a densidade de cada corante tirada da ficha técnica GLASU!.
+                        </p>
+                        <ul class="lista-check">
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Densidade, pH e viscosidade da ficha técnica de cada corante</li>
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Rendimento calibrado pelo tom cheio do Color Index</li>
+                            <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Trava de carga máxima de 6% de corante sobre a base</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="tabela-corantes">
+                            <table class="table table-sm align-middle mb-0">
+                                <caption class="tabela-corantes__legenda">Linha GLASU! Corantes · frasco de 50 mL</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Corante</th>
+                                        <th scope="col">Base pigmentária</th>
+                                        <th scope="col">Color Index</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaCorantes"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PARA QUEM ================= -->
+        <section class="secao secao--clara">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">Para quem é</span>
+                    <h2 class="secao__titulo">Se você mexe com cor, <span class="destaque">isso é para você</span></h2>
+                </header>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <article class="publico">
+                            <i class="bi bi-shop publico__icone" aria-hidden="true"></i>
+                            <h3 class="publico__titulo">Lojas e revendas</h3>
+                            <p>Atenda mais rápido no balcão, venda o número certo de frascos e entregue a ficha em PDF.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="publico">
+                            <i class="bi bi-brush publico__icone" aria-hidden="true"></i>
+                            <h3 class="publico__titulo">Pintores</h3>
+                            <p>Mostre a cor ao cliente antes de começar e acabe com o retrabalho por “não era essa”.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="publico">
+                            <i class="bi bi-rulers publico__icone" aria-hidden="true"></i>
+                            <h3 class="publico__titulo">Arquitetos e decoradores</h3>
+                            <p>Valide a paleta em ambiente e sob luzes diferentes, com receita reproduzível.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <article class="publico">
+                            <i class="bi bi-house-heart publico__icone" aria-hidden="true"></i>
+                            <h3 class="publico__titulo">Quem pinta em casa</h3>
+                            <p>Chegue na loja sabendo exatamente o que comprar. Sem medo de errar a cor do quarto.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COMPARATIVO ================= -->
+        <section class="secao">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">A diferença é gritante</span>
+                    <h2 class="secao__titulo">Do jeito antigo <span class="destaque">× com o MisturAI</span></h2>
+                </header>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="comparativo comparativo--antes">
+                            <h3 class="comparativo__titulo"><i class="bi bi-x-circle-fill" aria-hidden="true"></i> Misturando no escuro</h3>
+                            <ul>
+                                <li>Pinga, mexe, testa, erra, recomeça</li>
+                                <li>Compra frasco “por garantia”</li>
+                                <li>Descobre a cor real só na parede</li>
+                                <li>Receita fica na memória (e se perde)</li>
+                                <li>Cliente insatisfeito, retrabalho e prejuízo</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="comparativo comparativo--depois">
+                            <h3 class="comparativo__titulo"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Com o MisturAI</h3>
+                            <ul>
+                                <li>Vê a cor final antes de abrir a lata</li>
+                                <li>Compra só os frascos necessários</li>
+                                <li>Simula a parede com 3 tipos de luz</li>
+                                <li>Receita salva em texto e PDF</li>
+                                <li>Cliente aprova antes. Zero surpresa.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GARANTIA ================= -->
+        <section class="garantia">
+            <div class="container garantia__conteudo">
+                <i class="bi bi-shield-fill-check garantia__icone" aria-hidden="true"></i>
+                <div>
+                    <h2 class="garantia__titulo">Risco zero. Literalmente.</h2>
+                    <p class="garantia__texto">
+                        O simulador é <strong>gratuito</strong>, não pede cadastro, não pede cartão e funciona direto
+                        no navegador, no computador ou no celular. O único jeito de perder dinheiro aqui é
+                        <strong>continuar misturando sem simular</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= DÚVIDAS ================= -->
+        <section class="secao secao--clara" id="duvidas">
+            <div class="container">
+                <header class="secao__cabecalho">
+                    <span class="secao__sobretitulo">Sem letras miúdas</span>
+                    <h2 class="secao__titulo">Perguntas frequentes</h2>
+                </header>
+                <div class="accordion faq" id="faq">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                É grátis mesmo? Qual é a pegadinha?
+                            </button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                            <div class="accordion-body">
+                                Não tem pegadinha. O simulador é gratuito, sem cadastro e sem limite de uso. Você
+                                simula quantas cores quiser e só compra os corantes GLASU! que a receita pedir.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                A cor da tela é igual à da parede?
+                            </button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+                            <div class="accordion-body">
+                                É uma simulação técnica muito próxima da realidade, baseada em Kubelka-Munk e nos
+                                dados da ficha técnica. Ainda assim, telas, luz do ambiente e textura da parede
+                                influenciam. Para cores críticas, faça uma amostra pequena antes de tingir a lata
+                                inteira; a receita do MisturAI é o ponto de partida certo.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                Preciso instalar alguma coisa?
+                            </button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+                            <div class="accordion-body">
+                                Não. Funciona no navegador do computador, do tablet ou do celular. Abriu, usou.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                Como sei quantos frascos comprar?
+                            </button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq">
+                            <div class="accordion-body">
+                                O MisturAI calcula automaticamente. Cada frasco tem 50 mL (cerca de 1.000 gotas) e o
+                                cálculo é feito por cor, porque cada corante vem no seu próprio frasco. Você ainda vê
+                                quanto vai sobrar de cada um.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                Posso pingar quanto corante eu quiser?
+                            </button>
+                        </h3>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faq">
+                            <div class="accordion-body">
+                                O simulador respeita a carga máxima recomendada de 6% de corante sobre o volume da
+                                base. Isso protege a qualidade da tinta, e o limite se ajusta sozinho ao tamanho da
+                                lata.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CHAMADA FINAL ================= -->
+        <section class="chamada-final">
+            <div class="container chamada-final__conteudo">
+                <h2 class="chamada-final__titulo">Sua próxima lata pode sair <span class="destaque-branco">certa de
+                        primeira</span>.</h2>
+                <p class="chamada-final__texto">
+                    Cada minuto misturando no escuro é tinta, corante e tempo indo embora.
+                    Simule agora e leve a receita pronta.
+                </p>
+                <a href="index.html" class="btn btn-lg botao botao--branco botao--pulsar">
+                    <i class="bi bi-palette-fill" aria-hidden="true"></i> Acertar minha cor agora, grátis
+                </a>
+                <p class="chamada-final__relogio">
+                    <i class="bi bi-alarm" aria-hidden="true"></i>
+                    A condição de hoje termina em <strong class="contador" data-contador>00:00:00</strong>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= RODAPÉ ================= -->
+    <footer class="rodape">
+        <div class="container rodape__conteudo">
+            <img class="rodape__logo" src="assets/images/logo-cabecalho.png" alt="MisturAI" width="640" height="391">
+            <p class="rodape__texto">
+                MisturAI · simulador de tingimento com os corantes da linha GLASU!.<br>
+                A cor na tela é uma simulação; telas e iluminação podem alterar a percepção.
+            </p>
+        </div>
+    </footer>
+
+    <!-- barra fixa de chamada no celular -->
+    <div class="barra-movel" id="barraMovel">
+        <a href="index.html" class="btn botao botao--primario w-100">
+            <i class="bi bi-palette-fill" aria-hidden="true"></i> Simular minha cor grátis
+        </a>
+    </div>
+
+    <!-- ================= MODAL DE SAÍDA ================= -->
+    <div class="modal fade" id="modalSaida" tabindex="-1" aria-labelledby="modalSaidaTitulo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-saida">
+                <button type="button" class="btn-close modal-saida__fechar" data-bs-dismiss="modal"
+                    aria-label="Fechar"></button>
+                <i class="bi bi-hand-index-thumb modal-saida__icone" aria-hidden="true"></i>
+                <h2 class="modal-saida__titulo" id="modalSaidaTitulo">Espera! Vai sair sem testar?</h2>
+                <p class="modal-saida__texto">
+                    Leva <strong>menos de 1 minuto</strong> e pode salvar uma lata inteira de tinta.
+                    Não pede cadastro, não pede cartão.
+                </p>
+                <a href="index.html" class="btn btn-lg botao botao--primario w-100">
+                    Tá bom, quero testar minha cor
+                </a>
+                <button type="button" class="modal-saida__recusa" data-bs-dismiss="modal">
+                    Não, prefiro continuar arriscando a cor
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/landing.js"></script>
+</body>
+
+</html>
