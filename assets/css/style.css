@@ -1,0 +1,599 @@
+/* =========================================================
+   MisturAI — estilos no padrão BEM (bloco__elemento--modificador)
+   O Bootstrap continua fornecendo grid e componentes (card, btn,
+   form-control, modal, table, toast); os blocos abaixo cuidam da
+   identidade visual e do layout específico da aplicação.
+   ========================================================= */
+
+:root {
+    --laranja: #FF8200;
+    --laranja-escuro: #d96e00;
+    --cinza: #6f7072;
+    --cinza-claro: #ecedec;
+    --borda: #dcdedc;
+    --texto: #2f3031;
+    --texto-forte: #3c3d3e;
+}
+
+body {
+    background: var(--cinza-claro);
+    color: var(--texto);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    padding-bottom: 3rem;
+}
+
+/* ---- layout ---- */
+.layout {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.layout__fixo {
+    position: sticky;
+    top: 5.5rem;
+}
+
+@media (max-width:991.98px) {
+    .layout__fixo {
+        position: static;
+    }
+}
+
+/* ---- cabeçalho ---- */
+.cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background: #fff;
+    border-bottom: 3px solid var(--laranja);
+    margin-bottom: 1.5rem;
+}
+
+.cabecalho__conteudo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+}
+
+.cabecalho__marca {
+    flex: 0 0 auto;
+    margin: 0;
+    line-height: 0;
+}
+
+/* versão recortada e com fundo transparente de assets/images/logo.png */
+.cabecalho__logo {
+    display: block;
+    width: auto;
+    height: 56px;
+}
+
+.cabecalho__subtitulo {
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 1px solid var(--cinza-claro);
+    /* serifada itálica, para o tom artístico da chamada */
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--cinza);
+}
+
+@media (max-width: 575.98px) {
+    .cabecalho__logo {
+        height: 44px;
+    }
+
+    .cabecalho__subtitulo {
+        font-size: 1rem;
+    }
+}
+
+/* ---- botões (tema laranja sobre o .btn do Bootstrap) ---- */
+.botao {
+    font-weight: 600;
+}
+
+.botao--primario {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--laranja);
+    --bs-btn-border-color: var(--laranja);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--laranja-escuro);
+    --bs-btn-hover-border-color: var(--laranja-escuro);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--laranja-escuro);
+    --bs-btn-active-border-color: var(--laranja-escuro);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--laranja);
+    --bs-btn-disabled-border-color: var(--laranja);
+}
+
+.botao--contorno {
+    --bs-btn-color: var(--laranja);
+    --bs-btn-border-color: var(--laranja);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--laranja);
+    --bs-btn-hover-border-color: var(--laranja);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--laranja-escuro);
+    --bs-btn-active-border-color: var(--laranja-escuro);
+    --bs-btn-disabled-color: var(--laranja);
+    --bs-btn-disabled-border-color: var(--laranja);
+}
+
+/* ---- painel (card) ---- */
+.painel {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+    margin-bottom: 1.5rem;
+}
+
+.painel:last-child {
+    margin-bottom: 0;
+}
+
+.painel__cabecalho {
+    background: #fff;
+    border-bottom: 1px solid var(--borda);
+    border-radius: 14px 14px 0 0;
+    color: var(--cinza);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.painel__titulo {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.painel__icone {
+    color: var(--laranja);
+}
+
+/* ---- painel recolhível (accordion só no mobile) ---- */
+.painel__alternar {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+}
+
+.painel__seta {
+    font-size: .8rem;
+    transition: transform .2s ease;
+}
+
+.painel__alternar.collapsed .painel__seta {
+    transform: rotate(-90deg);
+}
+
+@media (max-width:991.98px) {
+    .painel--recolhivel .painel__cabecalho {
+        flex-wrap: wrap;
+    }
+
+    /* seção fechada: o cabeçalho vira o card inteiro */
+    .painel--recolhivel:has(.painel__alternar.collapsed) .painel__cabecalho {
+        border-bottom: 0;
+        border-radius: 14px;
+    }
+}
+
+/* no desktop as seções ficam sempre abertas e o título não é clicável */
+@media (min-width:992px) {
+    .painel__conteudo.collapse:not(.show),
+    .painel__conteudo.collapsing {
+        display: block;
+        height: auto !important;
+    }
+
+    .painel__alternar {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    .painel__seta {
+        display: none;
+    }
+}
+
+/* selo discreto no cabeçalho (ex.: "embalagem de 50 mL") */
+.painel__selo {
+    font-size: .66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    color: var(--laranja);
+    background: rgba(255, 130, 0, .12);
+    border: 1px solid rgba(255, 130, 0, .35);
+    border-radius: 999px;
+    padding: .05rem .5rem;
+}
+
+.painel__acoes {
+    margin-left: auto;
+    display: flex;
+    gap: .25rem;
+}
+
+.painel__subtitulo {
+    margin: 0 0 .25rem;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: inherit;
+}
+
+.painel__nota {
+    font-weight: 400;
+    color: var(--bs-secondary-color);
+}
+
+.painel__rodape {
+    background: #fff;
+    border-top: 1px solid var(--borda);
+    border-radius: 0 0 14px 14px;
+}
+
+/* ---- rótulos de formulário ---- */
+.rotulo {
+    font-size: .875em;
+    font-weight: 600;
+    margin-bottom: .25rem;
+}
+
+/* ---- seletor de base ---- */
+.seletor-base {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.seletor-base__opcao {
+    border: 2px solid var(--borda);
+    border-radius: 10px;
+    padding: .45rem .6rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: #fff;
+    font-size: .85rem;
+    width: 100%;
+    text-align: left;
+    transition: .15s;
+}
+
+.seletor-base__opcao:hover {
+    border-color: var(--cinza);
+}
+
+.seletor-base__opcao--ativa,
+.seletor-base__opcao--ativa:hover {
+    border-color: var(--laranja);
+    box-shadow: 0 0 0 3px rgba(255, 130, 0, .15);
+}
+
+.seletor-base__amostra {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid #cfcfcf;
+    flex: 0 0 auto;
+}
+
+/* ---- volume da lata ---- */
+.volume__predefinicoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+}
+
+.volume__predefinicao:checked {
+    background-color: #FF8200;
+    border-color: #FF8200;
+}
+
+.volume__predefinicao:focus {
+    border-color: #FF8200;
+    box-shadow: 0 0 0 .25rem rgba(255, 130, 0, .25);
+}
+
+/* ---- corantes ---- */
+.lista-corantes {
+    list-style: none;
+    margin: 0;
+    padding-top: .5rem;
+}
+
+.corante {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .6rem .25rem;
+    border-bottom: 1px dashed var(--borda);
+}
+
+.corante:last-child {
+    border-bottom: 0;
+}
+
+.corante--ativo {
+    background: rgba(255, 130, 0, .05);
+    border-radius: 8px;
+}
+
+.corante__amostra {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: inset 0 -6px 10px rgba(0, 0, 0, .18);
+}
+
+.corante__info {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.corante__topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+}
+
+.corante__nome {
+    font-size: .86rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.corante__qtd {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: .8rem;
+    color: var(--cinza);
+    white-space: nowrap;
+}
+
+.corante__qtd--ativa {
+    color: var(--laranja);
+}
+
+.corante__controle {
+    margin-top: .25rem;
+}
+
+.corante__controle::-webkit-slider-thumb {
+    background: var(--laranja);
+}
+
+.corante__controle::-moz-range-thumb {
+    background: var(--laranja);
+}
+
+.corante__botoes {
+    flex-shrink: 0;
+}
+
+/* ---- resumo da mistura ---- */
+.resumo {
+    margin: 0;
+    font-size: .875em;
+}
+
+.resumo__item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resumo__rotulo {
+    font-weight: 400;
+    color: var(--bs-secondary-color);
+}
+
+.resumo__valor {
+    margin: 0;
+    font-weight: 700;
+}
+
+.resumo__valor--destaque {
+    color: var(--laranja);
+}
+
+/* ---- alerta de carga ---- */
+.alerta {
+    margin: .5rem 0 0;
+    font-size: .72rem;
+    font-weight: 600;
+    color: #9a3412;
+    background: rgba(255, 130, 0, .12);
+    border: 1px solid rgba(255, 130, 0, .45);
+    border-radius: 8px;
+    padding: .4rem .55rem;
+}
+
+/* ---- amostra da cor resultante ---- */
+.amostra {
+    height: 190px;
+    margin: 0 0 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    transition: background-color .35s ease;
+}
+
+.amostra__hex {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: ui-monospace, Consolas, monospace;
+}
+
+.amostra__nome {
+    display: block;
+    font-size: .78rem;
+    opacity: .75;
+}
+
+/* ---- escala de gotas ---- */
+.escala {
+    display: flex;
+    gap: 3px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: .25rem;
+}
+
+.escala__passo {
+    flex: 1;
+    height: 64px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, .07);
+    border-radius: 4px;
+}
+
+.escala__rotulo {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: .62rem;
+    font-weight: 700;
+}
+
+.escala__dica {
+    margin: 0;
+    font-size: .875em;
+    color: var(--bs-secondary-color);
+}
+
+/* ---- ambiente ---- */
+.ambiente {
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--borda);
+}
+
+.ambiente__cena {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* ---- embalagens / lista de compra ---- */
+.compra {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.compra__linha {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .6rem;
+    font-size: .76rem;
+    border-bottom: 1px solid var(--borda);
+}
+
+.compra__linha:nth-child(even) {
+    background: #fbfbfb;
+}
+
+.compra__amostra {
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 0, 0, .18);
+}
+
+.compra__nome {
+    font-weight: 600;
+    min-width: 70px;
+}
+
+.compra__uso {
+    color: var(--cinza);
+    font-variant-numeric: tabular-nums;
+}
+
+.compra__qtd {
+    margin-left: auto;
+    font-weight: 700;
+    color: var(--laranja);
+    white-space: nowrap;
+}
+
+.compra__sobra {
+    font-size: .68rem;
+    color: var(--cinza);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 98px;
+    text-align: right;
+}
+
+.compra__total {
+    padding: .4rem .6rem;
+    font-size: .76rem;
+    background: var(--cinza-claro);
+    color: var(--texto-forte);
+    font-variant-numeric: tabular-nums;
+}
+
+.compra__vazio {
+    padding: .5rem .6rem;
+    font-size: .76rem;
+    color: var(--cinza);
+}
+
+@media (max-width:575.98px) {
+
+    .compra__uso,
+    .compra__sobra {
+        display: none;
+    }
+}
+
+/* ---- receita em texto ---- */
+.receita {
+    margin: 0;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .78rem;
+    white-space: pre-wrap;
+    background: var(--cinza-claro);
+    border-radius: 10px;
+    padding: .7rem .85rem;
+    color: var(--texto-forte);
+}
