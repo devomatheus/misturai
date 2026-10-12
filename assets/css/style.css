@@ -73,11 +73,11 @@ body {
     margin: 0;
     padding-left: 1rem;
     border-left: 1px solid var(--cinza-claro);
-    /* serifada itálica, para o tom artístico da chamada */
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    /* mesma família condensada e leve do "MISTURAI" da logo */
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
     font-size: 1.35rem;
-    font-style: italic;
-    font-weight: 500;
+    font-weight: 300;
+    letter-spacing: .02em;
     line-height: 1.25;
     color: var(--cinza);
 }
